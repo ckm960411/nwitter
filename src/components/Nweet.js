@@ -5,6 +5,7 @@ import { useState } from "react"
 function Nweet({ nweetObj, isOwner }) {
   const [editing, setEditing] = useState(false)
   const [newNweet, setNewNweet] = useState(nweetObj.text)
+  const { attachmentURL } = nweetObj
   const onDeleteClick = async() => {
     const ok = window.confirm("이 nweet 을 정말 삭제하시겠습니까?")
     if (ok) {
@@ -45,6 +46,7 @@ function Nweet({ nweetObj, isOwner }) {
           </>
         : <>
           <h4>{nweetObj.text}</h4>
+          {attachmentURL && <img src={attachmentURL} width="50px" height="50px" alt="myNweetImg" />}
           {isOwner && (
             <>
               <button onClick={toggleEditing}>Edit Nweet</button>
