@@ -11,7 +11,7 @@ function AppRouter({ isLoggedIn, userObj }) {
         {isLoggedIn && <Navigation />}
         <Routes>
           <Route exact path="/" element={isLoggedIn ? <Home userObj={userObj} /> : <Auth />} />
-          <Route exact path="/profile" element={<Profile />}/>
+          <Route exact path="/profile" element={<Profile userObj={userObj} />}/>
         </Routes>
       </BrowserRouter>
     </>
