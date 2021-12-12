@@ -1,4 +1,6 @@
 import { ref, deleteObject, uploadString, getDownloadURL, } from "@firebase/storage";
+import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { dbService, storageService } from "fBase";
 import { deleteDoc, updateDoc, doc } from "firebase/firestore";
 import { useRef, useState } from "react";
@@ -100,17 +102,18 @@ function Nweet({ nweetObj, isOwner, userObjUid }) {
   };
   return (
     <div>
-      <div>
+      <div className="nweet">
         {editing ? ( // 'editing' 즉 수정기능이 true 일 때만 새로운 form 을 보여줌
           <>
             {isOwner && ( // 해당 nweet 의 유저가 로그인 상태일 때만 수정권한 부여
               <>
-                <form onSubmit={onSubmit}>
+                <form onSubmit={onSubmit} className="container nweetEdit">
                   <input type="text" placeholder="Edit your nweet" value={newNweet} onChange={onChange} required />
-                  <input type="submit" value="Update Nweet" />
+                  <input type="submit" value="Update Nweet" className="formBtn" />
                 </form>
-                <button onClick={toggleEditing}>cancel</button>
+                <span onClick={toggleEditing} className="formBtn cancelBtn">cancel</span>
                 <input ref={fileInputRef} type="file" accept="image/*" onChange={onFileChange} />
+
                 {newAttachment ? ( // 새 첨부파일이 있으면 새 첨부파일을 띄움
                   <div>
                     <img src={newAttachment} width="50px" height="50px" alt="myUploadedImg" />
@@ -128,14 +131,16 @@ function Nweet({ nweetObj, isOwner, userObjUid }) {
         ) : (
           <>
             <h4>{nweetObj.text}</h4>
-            {attachmentURL && (
-              <img src={attachmentURL} width="150px" height="150px" alt="myNweetImg" />
-            )}
+            {attachmentURL && <img src={attachmentURL} alt="myNweetImg" />}
             {isOwner && (
-              <>
-                <button onClick={toggleEditing}>Edit Nweet</button>
-                <button onClick={onDeleteClick}>Delete Nweet</button>
-              </>
+              <div className="nweet__actions">
+                <span onClick={onDeleteClick}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </span>
+                <span onClick={toggleEditing}>
+                  <FontAwesomeIcon icon={faPencilAlt} />
+                </span>
+              </div>
             )}
           </>
         )}

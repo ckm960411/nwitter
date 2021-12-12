@@ -6,7 +6,15 @@ import Profile from "routes/Profile";
 
 function AppRouter({ refreshUser, isLoggedIn, userObj }) {
   return (
-    <>
+    <div style={{
+      maxWidth: 890,
+      width: "100%",
+      margin: "0 auto",
+      marginTop: 80,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+    }}>
       <BrowserRouter>
         {isLoggedIn && <Navigation userObj={userObj} />}
         <Routes>
@@ -14,7 +22,7 @@ function AppRouter({ refreshUser, isLoggedIn, userObj }) {
           <Route exact path="/profile" element={<Profile refreshUser={refreshUser} userObj={userObj} />}/>
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 
